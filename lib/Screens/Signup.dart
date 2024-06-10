@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
+import 'package:safespace/Screens/Login.dart';
+import 'package:safespace/Screens/navigatorScreen.dart';
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
@@ -8,7 +10,9 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           actions: [
             Padding(
               padding: EdgeInsets.only(
@@ -37,7 +41,7 @@ class Signup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Align(alignment: Alignment.center, child: Container(width: 200, child: Image.asset("assets/images/logo.png",fit: BoxFit.fitWidth))),
+                Align(alignment: Alignment.center, child: Container( child: Image.asset("assets/images/logo_NB.png",fit: BoxFit.fill,width:90))),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,12 +165,16 @@ class Signup extends StatelessWidget {
                             ]),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Align(
                         alignment: Alignment.center,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
+
+                            },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 90),
                               child: Text(
@@ -187,21 +195,53 @@ class Signup extends StatelessWidget {
                       ),
                       Row(
                         children: [
+                          Container(
+                            width: 160,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff1877F2)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Icon(Icons.facebook,color: Colors.white,),
+                                  Text("Facebook",style: PoppinsBold.copyWith(color: Colors.white),),
+                                  SizedBox(width: 6,),
+                            
+                                ],
+                              ),
+                          ),
+                          SizedBox(width: 30,),
+                          Container(
+                            width: 160,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                              color:Colors.white),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Icon(Icons.g_mobiledata,color: Colors.white,),
+                                  Text("Google",style: PoppinsBold.copyWith(color: Colors.grey),),
+                                  SizedBox(width: 6,),
+                            
+                                ],
+                              ),
+                          ),
+                        ],
+                      ),
+                  
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                        
                        
-                        RichText(text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: "Already have an account?",
-                                style: Poppins.copyWith(fontSize: 12,color: Colors.black)),
-                            TextSpan(
-                                text: " Login",
-                                style: PoppinsBold.copyWith(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 12,
-                                    color: Colors.orange)),
-                          ]
-                        ))
+                          Text("Already have an account?",style: PoppinsBold.copyWith(color: Colors.grey),),
+                          TextButton(onPressed: (){
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
+                          }, child: Text("Login",style: PoppinsBold.copyWith(color: Hgreen),),),
                         ],
                       )
                       
