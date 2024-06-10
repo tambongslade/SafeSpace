@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
 import 'package:safespace/Screens/Signup.dart';
+import 'package:safespace/Screens/navigatorScreen.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -125,7 +126,7 @@ class Login extends StatelessWidget {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Navigator()), (route) => false);
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()), (route) => false);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 90),
