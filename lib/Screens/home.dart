@@ -1,6 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
+import 'package:safespace/Screens/Contact.dart';
+import 'package:safespace/Screens/Newpage.dart';
+import 'package:safespace/Screens/Notification.dart';
+// import 'package:safespace/Screens/Notification.dart';
+// import 'package:safespace/Screens/Notification.dart';
+import 'package:safespace/Screens/recentnew.dart';
 import 'package:safespace/Screens/report.dart';
 
 class Home extends StatefulWidget {
@@ -29,7 +36,9 @@ class _HomeState extends State<Home> {
           ],
         ),
         actions: [
-          Icon(Icons.notifications_outlined),
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationScreen()));
+          }, icon: Icon(Icons.notifications_outlined)),
         ],
       ),
       body: Column(
@@ -59,7 +68,7 @@ class _HomeState extends State<Home> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 4.7,
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/flood.jpeg",
                                   fit: BoxFit.cover,
@@ -78,6 +87,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 20),
                           child: Row(
                             children: [
+                              Icon(CupertinoIcons.clock,size: 12,),
                               Text(
                                 "2h ago",
                                 style: PoppinsBold.copyWith(
@@ -85,6 +95,13 @@ class _HomeState extends State<Home> {
                               ),
                               SizedBox(
                                 width: 10,
+                              ),
+                              Icon(
+                                CupertinoIcons.chat_bubble,
+                                size: 12,
+                              ),
+                              SizedBox(
+                                width: 5,
                               ),
                               Text(
                                 "5 comments",
@@ -94,10 +111,15 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Spacer(),
-                              Text(
-                                "Read more>>>  ",
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Newpage()));
+                                },
+                                child: Text(
+                                  "Read more>>>  ",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                  ),
                                 ),
                               ),
                             ],
@@ -112,12 +134,18 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.only(right: 20),
             child: Align(
                 alignment: Alignment.topRight,
-                child: Text(
-                  "View All....",
-                  style: PoppinsBold.copyWith(
-                      fontSize: 12,
-                      color: Hgreen,
-                      decoration: TextDecoration.underline),
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Recentnews()));
+                  },
+                  child: Text(
+                    "View All....",
+                    style: PoppinsBold.copyWith(
+                        fontSize: 12,
+                        color: Hgreen,
+                        // decoration: TextDecoration.underline
+                        ),
+                  ),
                 )),
           ),
           SizedBox(
@@ -134,10 +162,11 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: MediaQuery.of(context).size.height / 15,
           ),
           ElevatedButton(
           style: ElevatedButton.styleFrom(
+            
             backgroundColor: Color(0xFFFF6600), // Orange background color
             // onPrimary: Colors.white, // Text color
             padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -170,7 +199,7 @@ class _HomeState extends State<Home> {
           ),
           onPressed: () {
             // Handle button press here
-            print('Button Pressed');
+         Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact()));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),

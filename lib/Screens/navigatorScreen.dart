@@ -1,5 +1,11 @@
+
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:safespace/Constants/color.dart';
+
+import 'package:safespace/Constants/styles.dart';
 import 'package:safespace/Screens/help.dart';
 import 'package:safespace/Screens/home.dart';
 import 'package:safespace/Screens/maps.dart';
@@ -14,7 +20,9 @@ class Navigatorscreen extends StatefulWidget {
 
 class _NavigatorscreenState extends State<Navigatorscreen> {
   
-List <Widget> pages = [Home(), Maps(), Setting(),Help()];
+List <Widget> pages = [Home(), Maps(), Setting(),SafeSpaceHelpPage()];
+final Iconlist = <IconData>[Icons.home, Icons.map_outlined, Icons.settings_outlined, Icons.help_outline];
+var title = ["Home","Maps","Settings","Help"];
 int pageIndex=0;
   @override
   Widget build(BuildContext context) {
@@ -23,18 +31,41 @@ int pageIndex=0;
         index: pageIndex,
         children: pages,
       ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: [Icons.home, Icons.map, Icons.settings, Icons.help],
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: Iconlist.length,
         activeIndex: pageIndex,
+        
         gapLocation: GapLocation.none,
- 
-        notchSmoothness: NotchSmoothness.defaultEdge,
-        onTap: (index) {
+        onTap: (index){
           setState(() {
-            pageIndex = index;
+            pageIndex=index;
           });
+
         },
-      ),
-    );
+        tabBuilder: (int index, bool isActive) {
+          final Color color = isActive ? Hgreen : Colors.black;
+          return Column(
+            children: [
+              Icon(
+                Iconlist[index],
+                size: 26,
+                color: color,
+              ),
+                            // const SizedBox(height: 4),
+                            Padding(padding:EdgeInsets.only(left: 5),
+                            child: AutoSizeText(
+                              title[index],
+                              maxLines: 1,
+                              style: Poppins.copyWith(color: Colors.black),
+                            ),)
+                    
+
+            ],
+          );
+        },
+        
+        
+     
+     ) );
   }
 }

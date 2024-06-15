@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
-import 'package:safespace/Screens/Login.dart';
+import 'package:safespace/Screens/Authentication/Login.dart';
+import 'package:safespace/Screens/Authentication/Otppage.dart';
 import 'package:safespace/Screens/navigatorScreen.dart';
 
 class Signup extends StatelessWidget {
@@ -27,7 +28,7 @@ class Signup extends StatelessWidget {
                   ),
                   Text(
                     "Get Help",
-                    style: gethelp,
+                    style: gethelp.copyWith(fontSize: 12),
                   )
                 ],
               ),
@@ -41,7 +42,7 @@ class Signup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(alignment: Alignment.center, child: Container( child: Image.asset("assets/images/logo_NB.png",fit: BoxFit.fill,width:90))),
+                Align(alignment: Alignment.center, child: Container( child: Image.asset("assets/images/logo_NB.png",fit: BoxFit.fill,width:80))),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,38 +142,39 @@ class Signup extends StatelessWidget {
                         height: 20,
                       ),
                       RichText(
+                        
                         text: TextSpan(
                             style: Poppins.copyWith(color: Colors.black),
                             children: [
                               TextSpan(
                                   text: "By signing up, you agree to our ",
-                                  style: Poppins.copyWith(fontSize: 12)),
+                                  style: Poppins.copyWith(fontSize: 11,)),
                               TextSpan(
                                   text: "Terms of Service",
                                   style: PoppinsBold.copyWith(
                                       decoration: TextDecoration.underline,
-                                      fontSize: 12,
+                                      fontSize: 11,
                                       color: Colors.orange)),
                               TextSpan(
                                   text: " and ",
-                                  style: Poppins.copyWith(fontSize: 12)),
+                                  style: Poppins.copyWith(fontSize: 11)),
                               TextSpan(
                                   text: "Privacy Policy",
                                   style: PoppinsBold.copyWith(
                                       decoration: TextDecoration.underline,
-                                      fontSize: 12,
+                                      fontSize: 11,
                                       color: Colors.orange)),
                             ]),
                       ),
-                      SizedBox(
-                        height: 10,
+                      const SizedBox(
+                        height:20,
                       ),
                       Align(
                         alignment: Alignment.center,
                         child: ElevatedButton(
                             onPressed: () {
 
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>OTPScreen()));
 
                             },
                             child: Padding(
@@ -194,37 +196,39 @@ class Signup extends StatelessWidget {
                         height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 160,
+                            width: 50,
                             height: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(40),
                               color: Color(0xff1877F2)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(Icons.facebook,color: Colors.white,),
-                                  Text("Facebook",style: PoppinsBold.copyWith(color: Colors.white),),
-                                  SizedBox(width: 6,),
+                                  // Text("Facebook",style: PoppinsBold.copyWith(color: Colors.white),),
+                                  // SizedBox(width: 6,),
                             
                                 ],
                               ),
                           ),
                           SizedBox(width: 30,),
                           Container(
-                            width: 160,
+                            width: 50,
                             height: 50,
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(40),
                               color:Colors.white),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Icon(Icons.g_mobiledata,color: Colors.white,),
-                                  Text("Google",style: PoppinsBold.copyWith(color: Colors.grey),),
-                                  SizedBox(width: 6,),
+                                  ClipRRect (borderRadius: BorderRadius.circular(40), child: Image.asset("assets/images/googleLogo.jpg",width: 34,))
+                                  // Text("Google",style: PoppinsBold.copyWith(color: Colors.grey),),
+                                  // SizedBox(width: 6,),
                             
                                 ],
                               ),

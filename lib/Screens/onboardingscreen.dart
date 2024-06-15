@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
-import 'package:safespace/Screens/Signup.dart';
+import 'package:safespace/Screens/Authentication/Signup.dart';
 
 class Onboardingscreen extends StatelessWidget {
   const Onboardingscreen({super.key});
