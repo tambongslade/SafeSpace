@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
@@ -37,7 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
 
                   // Handle OTP verification logic here
                 },

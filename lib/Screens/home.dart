@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
@@ -18,6 +19,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
+User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             Text(
-              "Hi, Profile",
+              "Hi, ${user?.displayName}",
               style: PoppinsBold.copyWith(fontSize: 14),
             )
           ],

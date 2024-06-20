@@ -1,5 +1,6 @@
 // import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
@@ -113,7 +114,7 @@ String Dropdowntext = "Flood";
                   SizedBox(height: 40,),
                   GestureDetector(
                     onTap: () {
-                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width ,

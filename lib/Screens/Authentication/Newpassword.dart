@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
@@ -74,7 +75,7 @@ class _NewpasswordState extends State<Newpassword> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Navigatorscreen()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
               },
               child: Text('Confirm',style: Poppins.copyWith(color: Colors.white),),
               style: ElevatedButton.styleFrom(
