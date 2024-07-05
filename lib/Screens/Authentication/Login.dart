@@ -38,7 +38,7 @@ IconData icondata=Icons.visibility_off;
   try{
   String res = await FirebaseAuthServices().loginUser(Emailcontroller.text, PasswordController.text);
 if (res == "Success") {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Navigatorscreen(userid: FirebaseAuth.instance.currentUser!.uid)));
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Navigatorscreen()));
 }else{
 showSnackbar(context, "Login Failed, password or emailIncorrect");
 

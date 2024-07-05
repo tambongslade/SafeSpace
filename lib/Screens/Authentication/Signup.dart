@@ -18,7 +18,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-final FirebaseAuthServices _auth = FirebaseAuthServices(); 
+// final FirebaseAuthServices _auth = FirebaseAuthServices(); 
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -35,42 +35,44 @@ final FirebaseAuthServices _auth = FirebaseAuthServices();
   }
 
     void signupUser() async {
-    if (_formkey.currentState!.validate()) { // Validate form first
-      setState(() {
-        isLoading = true; 
-      });
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> Navigatorscreen()));
+    // if (_formkey.currentState!.validate()) { // Validate form first
+    //   setState(() {
+    //     isLoading = true; 
+    //   });
 
-      try {
-        String res = await _auth.signUpUser(
-            email.text, password.text, name.text);
-        setState(() {
-          isLoading = false; 
-        });
+    //   try {
+    //     String res = await _auth.signUpUser(
+    //         email.text, password.text, name.text);
+    //     setState(() {
+    //       isLoading = false; 
+    //     });
 
-        if (res == "Success") {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
-        } else {
-          showSnackbar(context, res); // Display error from Firebase
-        }
-      } on FirebaseAuthException catch (e) {
-        setState(() {
-          isLoading = false; 
-        });
-        if (e.code == 'weak-password') {
-          showSnackbar(context, 'The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          showSnackbar(context, 'The account already exists for that email.');
-        } else {
-          showSnackbar(context, 'Error: ${e.message}'); // Generic error
-        }
-      } catch (e) {
-        setState(() {
-          isLoading = false; 
-        });
-        showSnackbar(context, 'An error occurred. Please try again later.');
-      }
-    }}
+    //     if (res == "Success") {
+    //       Navigator.of(context).pushReplacement(
+    //           MaterialPageRoute(builder: (context) => Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
+    //     } else {
+    //       showSnackbar(context, res); // Display error from Firebase
+    //     }
+    //   } on FirebaseAuthException catch (e) {
+    //     setState(() {
+    //       isLoading = false; 
+    //     });
+    //     if (e.code == 'weak-password') {
+    //       showSnackbar(context, 'The password provided is too weak.');
+    //     } else if (e.code == 'email-already-in-use') {
+    //       showSnackbar(context, 'The account already exists for that email.');
+    //     } else {
+    //       showSnackbar(context, 'Error: ${e.message}'); // Generic error
+    //     }
+    //   } catch (e) {
+    //     setState(() {
+    //       isLoading = false; 
+    //     });
+    //     showSnackbar(context, 'An error occurred. Please try again later.');
+    //   }
+    // }
+    }
 
   @override
   void dispose() {

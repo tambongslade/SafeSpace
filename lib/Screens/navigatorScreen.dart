@@ -14,7 +14,7 @@ import 'package:safespace/firebase_auth_implementation/firebase_auth_services.da
 
 class Navigatorscreen extends StatefulWidget {
  late String userid;
- Navigatorscreen({super.key, required String userid});
+ Navigatorscreen({super.key});
 //  final String userid;
 
   @override
@@ -28,11 +28,11 @@ class _NavigatorscreenState extends State<Navigatorscreen> {
     _fetchUserName();
   }
   String? displayName;
-  final FirebaseAuthServices _authServices = FirebaseAuthServices();
+  // final FirebaseAuthServices _authServices = FirebaseAuthServices();
   Future<void> _fetchUserName() async {
-    String? name = await _authServices.getDisplayName(widget.userid);
+    // String? name = await _authServices.getDisplayName(widget.userid);
     setState(() {
-      displayName = name;
+      // displayName = name;
   
     });
   }

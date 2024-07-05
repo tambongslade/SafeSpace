@@ -114,7 +114,7 @@ String Dropdowntext = "Flood";
                   SizedBox(height: 40,),
                   GestureDetector(
                     onTap: () {
-                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width ,

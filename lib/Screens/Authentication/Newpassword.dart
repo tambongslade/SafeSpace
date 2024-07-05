@@ -75,7 +75,7 @@ class _NewpasswordState extends State<Newpassword> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Navigatorscreen()));
               },
               child: Text('Confirm',style: Poppins.copyWith(color: Colors.white),),
               style: ElevatedButton.styleFrom(

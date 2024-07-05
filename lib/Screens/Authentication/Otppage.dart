@@ -38,7 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navigatorscreen()));
 
                   // Handle OTP verification logic here
                 },

@@ -20,7 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   
-User user = FirebaseAuth.instance.currentUser!;
+// User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ User user = FirebaseAuth.instance.currentUser!;
               width: 10,
             ),
             Text(
-              "Hi, ${user?.displayName}",
+              "Hi, Safespace",
               style: PoppinsBold.copyWith(fontSize: 14),
             )
           ],
