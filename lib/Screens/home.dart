@@ -3,13 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
 import 'package:safespace/Constants/styles.dart';
+import 'package:safespace/Screens/Authentication/provider.dart';
 import 'package:safespace/Screens/Contact.dart';
+import 'package:safespace/Screens/Emergency.dart';
 import 'package:safespace/Screens/Newpage.dart';
 import 'package:safespace/Screens/Notification.dart';
 // import 'package:safespace/Screens/Notification.dart';
 // import 'package:safespace/Screens/Notification.dart';
 import 'package:safespace/Screens/recentnew.dart';
 import 'package:safespace/Screens/report.dart';
+import 'package:provider/provider.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,6 +27,7 @@ class _HomeState extends State<Home> {
 // User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
+     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -33,7 +38,7 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             Text(
-              "Hi, Safespace",
+              "Hi,${userProvider.name}",
               style: PoppinsBold.copyWith(fontSize: 14),
             )
           ],
@@ -202,7 +207,7 @@ class _HomeState extends State<Home> {
           ),
           onPressed: () {
             // Handle button press here
-         Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact()));
+         Navigator.push(context, MaterialPageRoute(builder: (context)=> Emergency()));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),

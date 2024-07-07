@@ -10,6 +10,7 @@ import 'package:safespace/Screens/help.dart';
 import 'package:safespace/Screens/home.dart';
 import 'package:safespace/Screens/maps.dart';
 import 'package:safespace/Screens/setting.dart';
+import 'package:safespace/Screens/tips.dart';
 import 'package:safespace/firebase_auth_implementation/firebase_auth_services.dart';
 
 class Navigatorscreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _NavigatorscreenState extends State<Navigatorscreen> {
   
 
   
-List <Widget> pages = [Home(), Maps(), Setting(),SafeSpaceHelpPage()];
+List <Widget> pages = [Home(), Maps(), Setting(),TipsPage()];
 final Iconlist = <IconData>[Icons.home, Icons.map_outlined, Icons.settings_outlined, Icons.help_outline];
 var title = ["Home","Maps","Settings","Help"];
 int pageIndex=0;

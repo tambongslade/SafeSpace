@@ -1,13 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:safespace/Constants/color.dart';
+import 'package:provider/provider.dart';
+
 import 'package:safespace/Constants/styles.dart';
 import 'package:safespace/Screens/Authentication/Login.dart';
-import 'package:safespace/Screens/Authentication/Otppage.dart';
+import 'package:safespace/Screens/Authentication/provider.dart';
 import 'package:safespace/Screens/navigatorScreen.dart';
 import 'package:safespace/components/snack_bar.dart';
-import 'package:safespace/firebase_auth_implementation/firebase_auth_services.dart';
-// import 'package:safespace/Screens/navigatorScreen.dart';
+import 'package:http/http.dart' as http;
 
 final _formkey = GlobalKey<FormState>();
 class Signup extends StatefulWidget {
@@ -20,9 +21,9 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
 // final FirebaseAuthServices _auth = FirebaseAuthServices(); 
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController namec = TextEditingController();
+  TextEditingController emailc = TextEditingController();
+  TextEditingController passwordc = TextEditingController();
   bool isLoading = false;
 
   String? validateEmail(String? Email) {
@@ -34,53 +35,59 @@ class _SignupState extends State<Signup> {
     return null;
   }
 
-    void signupUser() async {
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> Navigatorscreen()));
-    // if (_formkey.currentState!.validate()) { // Validate form first
-    //   setState(() {
-    //     isLoading = true; 
-    //   });
+    Future<void> signupUser() async {
+    if (_formkey.currentState?.validate() ?? false) {
+      setState(() {
+        isLoading = true;
+      });
 
-    //   try {
-    //     String res = await _auth.signUpUser(
-    //         email.text, password.text, name.text);
-    //     setState(() {
-    //       isLoading = false; 
-    //     });
+      final email = emailc.text.trim();
+      final password = passwordc.text.trim();
+      final name = namec.text.trim();
 
-    //     if (res == "Success") {
-    //       Navigator.of(context).pushReplacement(
-    //           MaterialPageRoute(builder: (context) => Navigatorscreen(userid:FirebaseAuth.instance.currentUser!.uid)));
-    //     } else {
-    //       showSnackbar(context, res); // Display error from Firebase
-    //     }
-    //   } on FirebaseAuthException catch (e) {
-    //     setState(() {
-    //       isLoading = false; 
-    //     });
-    //     if (e.code == 'weak-password') {
-    //       showSnackbar(context, 'The password provided is too weak.');
-    //     } else if (e.code == 'email-already-in-use') {
-    //       showSnackbar(context, 'The account already exists for that email.');
-    //     } else {
-    //       showSnackbar(context, 'Error: ${e.message}'); // Generic error
-    //     }
-    //   } catch (e) {
-    //     setState(() {
-    //       isLoading = false; 
-    //     });
-    //     showSnackbar(context, 'An error occurred. Please try again later.');
-    //   }
-    // }
+
+      final response = await http.post(
+        Uri.parse('http://192.168.1.6:2000/user/signup'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+      );
+
+
+      setState(() {
+        isLoading = false;
+      });
+
+      if (response.statusCode == 201) {
+      final Map<String, dynamic> responseBody = jsonDecode(response.body);
+      final String token = responseBody['token'];
+      final String id = responseBody['id'];  // Assuming the response includes the user's id
+
+      // Store the token, id, and name in UserProvider
+      Provider.of<UserProvider>(context, listen: false).setUser(token, id, name);
+
+      // Navigate to the home screen
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Navigatorscreen()));
+    } else {
+      final error = jsonDecode(response.body)['message'];
+      showSnackbar(context, 'Signup failed: $error');
     }
+    }
+    
+  }
 
   @override
   void dispose() {
     super.dispose();
     // TODO: implement dispose
-    name.dispose();
-    email.dispose();
-    password.dispose();
+    namec.dispose();
+    emailc.dispose();
+    passwordc.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -140,7 +147,7 @@ class _SignupState extends State<Signup> {
                         ),
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          controller: email,
+                          controller: emailc,
                           decoration: InputDecoration(
                             hintText: "Example@gmail.com",
                             hintStyle: Poppins.copyWith(fontSize: 12),
@@ -168,7 +175,7 @@ class _SignupState extends State<Signup> {
                           style: PoppinsBold.copyWith(fontSize: 12),
                         ),
                         TextFormField(
-                          controller: name,
+                          controller: namec,
                           decoration: InputDecoration(
                             hintText: "Enter your Name",
                             hintStyle: Poppins.copyWith(fontSize: 12),
@@ -180,7 +187,7 @@ class _SignupState extends State<Signup> {
                                 borderRadius: BorderRadius.circular(10)),
                           ),
                           validator: (Value){
-                            if(name.text.length<3){
+                            if(namec.text.length<3){
                               showSnackbar(context, "Name should be atleast 3 characters");
                             }
                           },
@@ -193,13 +200,13 @@ class _SignupState extends State<Signup> {
                           style: PoppinsBold.copyWith(fontSize: 12),
                         ),
                         TextFormField(
-                          controller: password,
+                          controller: passwordc,
                           obscureText: true,
                           obscuringCharacter: "*",
                           autovalidateMode: AutovalidateMode.onUserInteraction,
 
                           validator: (value) {
-                            if(email.text.length<6){
+                            if(emailc.text.length<6){
                               showSnackbar(context, "Password should be atleast 6 characters");
                             }else{
                               return null;
