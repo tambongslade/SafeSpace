@@ -42,7 +42,7 @@ class _NavigatorscreenState extends State<Navigatorscreen> {
   
 List <Widget> pages = [Home(), Maps(), Setting(),TipsPage()];
 final Iconlist = <IconData>[Icons.home, Icons.map_outlined, Icons.settings_outlined, Icons.help_outline];
-var title = ["Home","Maps","Settings","Help"];
+var title = ["Home","Maps","Settings","Tips"];
 int pageIndex=0;
   @override
   Widget build(BuildContext context) {

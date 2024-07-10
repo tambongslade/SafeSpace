@@ -8,6 +8,7 @@ import 'package:safespace/Screens/Contact.dart';
 import 'package:safespace/Screens/Emergency.dart';
 import 'package:safespace/Screens/Newpage.dart';
 import 'package:safespace/Screens/Notification.dart';
+import 'package:safespace/Screens/pushnotification.dart';
 // import 'package:safespace/Screens/Notification.dart';
 // import 'package:safespace/Screens/Notification.dart';
 import 'package:safespace/Screens/recentnew.dart';
@@ -23,6 +24,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    PushNotifications.getDeviceToken();
+    super.initState();
+  }
   
 // User user = FirebaseAuth.instance.currentUser!;
   @override

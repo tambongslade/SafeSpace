@@ -36,6 +36,7 @@ class _SignupState extends State<Signup> {
   }
 
     Future<void> signupUser() async {
+      print("Sign Up Button Pressed");
     if (_formkey.currentState?.validate() ?? false) {
       setState(() {
         isLoading = true;
@@ -47,7 +48,7 @@ class _SignupState extends State<Signup> {
 
 
       final response = await http.post(
-        Uri.parse('http://192.168.1.6:2000/user/signup'),
+        Uri.parse('http://192.168.1.177:3000/user/signup'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

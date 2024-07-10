@@ -67,7 +67,7 @@ class _ReportState extends State<Report> {
 
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.1.2:2000/user/createAlert'),
+      Uri.parse('http://192.168.1.177:3000/user/createAlert'),
     );
 
     request.headers['Authorization'] = 'Bearer ${userProvider.token}';

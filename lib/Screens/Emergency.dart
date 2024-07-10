@@ -42,7 +42,7 @@ class _EmergencyState extends State<Emergency> {
   }
 
   Future<List<Responder>> fetchResponders() async {
-    final response = await http.get(Uri.parse('http://192.168.1.2:2000/user/responders'));
+    final response = await http.get(Uri.parse('http://192.168.1.177:3000/user/responders'));
   print(response);
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -108,14 +108,36 @@ class ResponderDetail extends StatelessWidget {
             Text('Contact: ${responder.contact}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                final url = 'tel:${responder.contact}';
-                if (await canLaunch(url)) {
-                  await launch(url);
+               onPressed: () async {
+            final String contact = responder.contact;
+            if (contact != null && contact.isNotEmpty) {
+              final Uri uri = Uri(
+                scheme: 'tel',
+                path: contact,
+              );
+
+              try {
+                if (await canLaunch(uri.toString())) {
+                  await launch(uri.toString());
                 } else {
-                  throw 'Could not launch $url';
+                  throw 'Could not launch ${uri.toString()}';
                 }
-              },
+              } catch (e) {
+                print(e);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Failed to make a call: $e'),
+                  ),
+                );
+              }
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Invalid phone number'),
+                ),
+              );
+            }
+          },
               child: Text('Call ${responder.contact}'),
             ),
           ],
