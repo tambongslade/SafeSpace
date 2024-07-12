@@ -9,7 +9,7 @@ import 'package:safespace/Screens/Authentication/Signup.dart';
 import 'package:safespace/Screens/Authentication/provider.dart';
 import 'package:safespace/Screens/navigatorScreen.dart';
 import 'package:safespace/components/snack_bar.dart';
-// import 'package:safespace/providers/user_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _formkey = GlobalKey<FormState>();
 
@@ -37,43 +37,48 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
 
   void loginUser() async {
-    print("LOgin Button Pressed");
-    if (_formkey.currentState?.validate() ?? false) {
-      final email = emailController.text.trim();
-      final password = passwordController.text.trim();
+  print("Login Button Pressed");
+  if (_formkey.currentState?.validate() ?? false) {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
 
-      try {
-        final response = await http.post(
-          Uri.parse('http://192.168.1.177:3000/user/login'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode(<String, String>{
-            'email': email,
-            'password': password,
-          }),
-        );
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.1.177:3000/user/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'password': password,
+        }),
+      );
 
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> responseBody = jsonDecode(response.body);
-          final String token = responseBody['token'];
-          final String id = responseBody['id'];
-          final String name = responseBody['name'];
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = jsonDecode(response.body);
+        final String token = responseBody['token'];
+        final String id = responseBody['id'];
+        final String name = responseBody['name'];
 
-          // Store the token, id, and name in UserProvider
-          Provider.of<UserProvider>(context, listen: false).setUser(token, id, name);
+        // Save login state and user information in SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+        await prefs.setString('token', token);
+        await prefs.setString('id', id);
+        await prefs.setString('name', name);
+        await prefs.setString('email', email); // Save email
 
-          // Navigate to the home screen
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Navigatorscreen()));
-        } else {
-          final error = jsonDecode(response.body)['message'];
-          showSnackbar(context, 'Login failed: $error');
-        }
-      } catch (e) {
-        showSnackbar(context, 'An error occurred: ${e.toString()}');
+        // Navigate to the home screen
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Navigatorscreen()));
+      } else {
+        final error = jsonDecode(response.body)['message'];
+        showSnackbar(context, 'Login failed: $error');
       }
+    } catch (e) {
+      showSnackbar(context, 'An error occurred: ${e.toString()}');
     }
   }
+}
 
   @override
   void dispose() {
